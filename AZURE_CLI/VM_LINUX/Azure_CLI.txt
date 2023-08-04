@@ -1,0 +1,23 @@
+
+Azure with CLI
+
+
+
+az login
+
+az group create --name testdemo --location eastus
+
+az group create --resource-group testdemo --name testdemolinux --image ubuntu --admin-username azureuser --generate-ssh-keys --public-ip-sku Standard
+
+az vm run-command invoke --resource-group testdemo --name testdemolinux --comand-id RunShellScript --scripts "sudo apt-get update && sudo apt-get install -y nginx"
+
+az vm open-port --resource-group testdemo --name testdemolinux --port 80 
+
+az group delete --name testdemo --no-wait --yes --verbose
+
+cls
+
+exit
+
+
+
