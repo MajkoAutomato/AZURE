@@ -1,23 +1,29 @@
 
 Azure with CLI
 
-
+rgName="testdemo"
+location="EastUS"
+vmName="testdemolinux"
+imageName="UbuntuLTS"
+adminUser="azureuser"
+publicIpSku="Standard"
 
 az login
 
-az group create --name testdemo --location eastus
+az group create --name $rgname --location $location
 
-az group create --resource-group testdemo --name testdemolinux --image ubuntu --admin-username azureuser --generate-ssh-keys --public-ip-sku Standard
+az vm create --resource-group $rgName --name $vmName --image $imageName --admin-username $adminUser --generate-ssh-keys --public-ip-sku $publicIpSku
 
-az vm run-command invoke --resource-group testdemo --name testdemolinux --comand-id RunShellScript --scripts "sudo apt-get update && sudo apt-get install -y nginx"
+az vm run-command invoke --resource-group $rgName --name $vmName --command-id RunShellScript --scripts "sudo apt-get update && sudo apt-get install -y nginx"
 
-az vm open-port --resource-group testdemo --name testdemolinux --port 80 
+az vm open-port --resource-group $rgName --name $vmName --port 80 
 
-az group delete --name testdemo --no-wait --yes --verbose
+az group delete --name $rgName --no-wait --yes --verbose
 
 cls
 
 exit
+
 
 
 
