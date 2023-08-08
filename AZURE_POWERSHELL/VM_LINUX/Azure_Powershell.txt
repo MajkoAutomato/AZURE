@@ -1,0 +1,17 @@
+
+
+
+Connect-AzAccount
+
+New-AzResourceGroup -Name testdemo -Location EastUS
+
+New-AzResourceGroup -Name testdemolinux -Location EastUS -Image Debian -Size Standard_B2s -PublicIpAddressName testdemolinux -OpenPort 80 -GenerateSshKey -SshKeyname testdemolinux
+
+echo 'sudo apt-get update && sudo apt-get install -y nginx' > testdemolinux.sh
+
+Invoke-AzVMRunCommand -ResourceGroup testdemo -Name testdemo -CommandId RunShellScript -ScriptPath .\testdemolinux.sh
+
+Get-AzPublicIpAddress -ResourceGroupName testdemolinux -testdemolinux | select "IpAddress"
+
+Remove-AzResourceGroup -Name testdemo
+
