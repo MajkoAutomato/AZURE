@@ -1,0 +1,14 @@
+
+
+New-AzResourceGroup -Name testdemo -Location EastUS 
+
+New-AzVM -ResourcegroupName testdemo -Name testdemoWindows -Location EastUS -VirtualNetworkName testdemo -SubnetName testdemo -SecurityGroupName testdemo
+-PublicIpAdressName testdemo -OpenPorts 80,3389 
+
+echo 'InstallWindowsFeature -Name Web-Server -IncludeManagementTools' > testdemo.ps1
+
+Invoke-AzRunCommand -ResourceGroupName testdemo -Name testdemoWindows -CommandId RunShellScript -ScriptPath .\testdemo.ps1
+
+Get-AzPublicIpAddress -ResourceGroupName testdemo -Name testdemoWindows | select "IpAddress"
+
+Remove-AzResourceGroup -Name testdemo 
