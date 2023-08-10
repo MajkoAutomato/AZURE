@@ -18,7 +18,15 @@ az vm run-command invoke --resource-group $rgName --name $vmName --command-id Ru
 
 az vm open-port --resource-group $rgName --name $vmName --port 80 
 
-az group delete --name $rgName --no-wait --yes --verbose
+$confirmation = Read-Host "Do you want to delete the resource group '$rgName'? (Y/N)"
+
+if ($confirmation -eq "Y" -or $confirmation -eq "y") {
+    # Delete the resource group using the az command
+    az group delete --name $rgName --no-wait --yes --verbose
+    Write-Host "Resource group deletion initiated."
+} else {
+    Write-Host "Resource group deletion canceled."
+}
 
 cls
 
