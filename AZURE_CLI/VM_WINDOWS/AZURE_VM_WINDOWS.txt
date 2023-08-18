@@ -1,0 +1,15 @@
+
+
+az login
+
+az vm create -g testdemo -n testdemo --image Win2019Datacenter --admin-username azureuser --public-ip-sku Standard
+
+az vm run-command invoke -g testdemo -n testdemo --command-id RunPowerShellScript --scripts "Install-WindowsFeature -name Web-Server -IncludeManagementTools"
+
+az vm open-port -g testdemo -n testdemo --port 80
+
+az group delete -n testdemo
+
+cls
+
+exit
