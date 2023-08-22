@@ -1,6 +1,6 @@
 
 
-If you want to use Powershell from you local computer you need to maintain 3 processes. Install, import and connect to an Azure account.
+If you want to use Powershell from you local computer you need to proceed 3 processes. Install, import and connect to an Azure account.
 This is the installation module.
 
 
